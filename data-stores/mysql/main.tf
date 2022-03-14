@@ -1,5 +1,5 @@
 #========== Version ===========
-# 
+#
 # terraform {
 #
 #   # Требуем исключительно версию Terraform 1.1.6
@@ -30,7 +30,7 @@ data "aws_ssm_parameter" "db_password" {
   depends_on = [aws_ssm_parameter.rds_password]
 }
 
-#===================================================================
+#===================== Data Base =====================================
 
 resource "aws_db_instance" "example" {
   identifier_prefix   = "${var.name_db}-terraform-up-and-running"

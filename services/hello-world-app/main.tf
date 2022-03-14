@@ -76,7 +76,7 @@ resource "aws_lb_listener_rule" "asg" {
 #========== Modules ===============
 
 module "asg" {
-  source             = "../../cluster/asg-rolling-deploy"
+  source             = "github.com/modon1999/Modules_Terraform_Up_and_Running//cluster/asg-rolling-deploy?ref=v0.0.7"
   cluster_name       = "hello-world-${var.environment}"
   server_port        = var.server_port
   ami                = var.ami
@@ -92,7 +92,7 @@ module "asg" {
 }
 
 module "alb" {
-  source   = "../../networking/alb"
+  source   = "github.com/modon1999/Modules_Terraform_Up_and_Running//networking/alb?ref=v0.0.7"
   alb_name = "hello-world-${var.environment}"
   subnets  = var.subnet_ids
 }
