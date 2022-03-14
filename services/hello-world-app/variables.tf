@@ -3,36 +3,6 @@ variable "environment" {
   type        = string
 }
 
-variable "db_password" {
-  description = "The password for the database"
-  type        = string
-  default     = "1"
-}
-
-variable "password_name_db" {
-  description = "The name for the database"
-  type        = string
-  default     = "/example"
-}
-
-variable "type_db" {
-  description = "The name for the database"
-  type        = string
-  default     = "db.t2.micro"
-}
-
-variable "storage_db" {
-  description = "The name for the database"
-  type        = string
-  default     = "10"
-}
-
-variable "username_db" {
-  description = "The name for the database"
-  type        = string
-  default     = "admin"
-}
-
 variable "server_port" {
   description = "The port the server will use for HTTP requests"
   type        = number
@@ -91,5 +61,15 @@ variable "health_check_type" {
 
 variable "vpc_id" {
   description = "The type of health check to perform. Must be one of: EC2, ELB."
+  type        = string
+}
+
+variable "db_remote_state_bucket" {
+  description = "The name for the database"
+  type        = string
+}
+
+variable "db_remote_state_key" {
+  description = "The name for the database"
   type        = string
 }

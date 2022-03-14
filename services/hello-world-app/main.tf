@@ -23,22 +23,22 @@ locals {
 data "template_file" "user_data" {
   template = file("${path.module}/user_data.sh.tpl")
   vars = {
-    db_address  = module.mysql.address
-    db_port     = module.mysql.port
+    db_address  = data.terraform_remote_state.db.outputs.address
+    db_port     = data.terraform_remote_state.db.outputs.port
     server_text = var.server_text
   }
 }
 
 #=============== Data Base =================================
 
-# data "terraform_remote_state" "db" {
-#   backend = "s3"
-#   config = {
-#     bucket = var.db_remote_state_bucket
-#     key    = var.db_remote_state_key
-#     region = "eu-central-1"
-#   }
-# }
+data "terraform_remote_state" "db" {
+  backend = "s3"
+  config = {
+    bucket = var.db_remote_state_bucket
+    key    = var.db_remote_state_key
+    region = "eu-central-1"
+  }
+}
 
 #========== Target Group ===============
 
@@ -95,13 +95,4 @@ module "alb" {
   source   = "../../networking/alb"
   alb_name = "hello-world-${var.environment}"
   subnets  = var.subnet_ids
-}
-
-module "mysql" {
-  source           = "../../data-stores/mysql"
-  password_name_db = var.password_name_db
-  name_db          = var.environment
-  type_db          = var.type_db
-  storage          = var.storage_db
-  username_db      = var.username_db
 }
